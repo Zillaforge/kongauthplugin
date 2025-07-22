@@ -1,0 +1,33 @@
+# version: "2"
+services:
+  pegasus-cloud-mariadb:
+    image: mariadb:10.5.8
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      pegasus-cloud-network:
+        ipv4_address: 172.40.200.0
+    volumes:
+      - pegasus-cloud-mariadb-data:/var/lib/mysql
+  pegasus-cloud-phpmyadmin:
+    profiles:
+      - ${PHPMYADMIN_DISABLE:-}
+    image: phpmyadmin/phpmyadmin
+    container_name: mariadb-phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+      - MYSQL_ROOT_PASSWORD=password
+    networks:
+      pegasus-cloud-network:
+        ipv4_address: 172.40.200.1
+    ports:
+      - "80:80"
+networks:
+  pegasus-cloud-network:
+    external: true
+    name: pegasus-cloud-network
+volumes:
+  pegasus-cloud-mariadb-data:
+    external: true
+    name: pegasus-cloud-mariadb-data

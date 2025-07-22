@@ -1,0 +1,18 @@
+services:
+
+  pegasus-cloud-iamserver-release:
+    image: ociscloud/iam:1.8.3
+    container_name: iam-server-release
+    networks:
+      pegasus-cloud-network:
+        ipv4_address: 172.40.100.1
+    volumes:
+      - ${PWD}/docker-compose/etc/iam.yaml:/mnt/iam.yaml
+    command: ["/PegasusIAM","serve","-c","/mnt/iam.yaml"]
+    restart: on-failure
+
+networks:
+  pegasus-cloud-network:
+    external: true
+    name: pegasus-cloud-network
+

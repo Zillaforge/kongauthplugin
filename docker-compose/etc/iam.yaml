@@ -1,0 +1,146 @@
+version: 1.8.3
+kind: PegasusIAM
+iam:
+  instance: PegasusIAM
+  host: 0.0.0.0:5051
+  http_host: 0.0.0.0:8084
+  request_timeout: 10
+  unix_socket: /PegasusIAM.sock
+  http_attributes:
+    access_control_allow:
+      origin: "*"
+      # credentials: "true"
+      # headers: "Origin, Content-Length, Content-Type, X-Asus-Mon-Token, Authorization"
+      # methods: "GET,POST, PUT, PATCH, DELETE, HEAD"
+      # expose_headers: "Location"
+  unix_socket_attributes:
+    conn_count: 20
+  system_project: 14735dfa-5553-46cc-b4bd-405e711b223f
+  jwt_token:
+    salt: eQ29N97QQsxHo//Tvn2moCi1mkLlHtf89l7+lX4TIS4Z61Ndp3JCKyxLTzlSDcRDDs+0YDgGoAjRgihL2bK2GQ==
+    expire_mins: 1440
+    refresh_mins: 1440
+  logger:
+    system_log:
+      path: log/
+      mode: debug
+      max_size: 10
+      max_backups: 5
+      max_age: 10
+      compress: false
+      show_in_console: true
+    access_log:
+      path: log/
+      show_in_console: true
+  tls:
+    enable: false
+    cert_path: tls/pegasus-iam/pegasus-iam.pem
+    key_path: tls/pegasus-iam/pegasus-iam-key.pem
+  scopes:
+    mfa_required: false
+    enable_standard_redirect_code: false
+    enable_namespaced: false
+    enable_password_expired: false
+    enable_security_guard: false
+    permission_validate_mode: blacklist
+    enable_password_history: false
+    enable_change_initial_password: false
+    project_pre_expiration_reminder_days: [1]
+  redirection:
+    user_portal_mfa_verify_page: http://userportal.com/mfa/verify?foo=bar
+    user_portal_mfa_register_page: http://userportal.com/mfa/register
+    user_portal_force_change_password_page: http://userportal.com/force_change_password
+    admin_portal_mfa_verify_page: http://adminportal.com/mfa/verify
+    admin_portal_mfa_register_page: http://adminportal.com/mfa/register
+    admin_portal_force_change_password_page: http://adminportal.com/force_change_password
+  mfa:
+    issuer: iam-server
+    account_name: pegasus-cloud
+    period: 30
+    algorithm: SHA1
+    secret_size: 20
+    register_token_salt: eQ29N97QQsxHo//Tvn2moCi1mkLlHtf89l7+lX4TIS4Z61Ndp3JCKyxLTzlSDcRDDs+0YDgGoAjRgihL2bK2GQ==
+  force_change_password:
+    maximum_age: 180
+    token_salt: eQ29N97QQsxHo//Tvn2moCi1mkLlHtf89l7+lX4TIS4Z61Ndp3JCKyxLTzlSDcRDDs+0YDgGoAjRgihL2bK2GQ==
+  password_history:
+    detect_range: 5
+  security_guard:
+    violations: 3
+    jail_period: 1800
+    observation_time: 900
+  tracer: 
+    enable: false
+    collector_endpoint: http://pegasus-cloud-jaeger:14268/api/traces
+    timeout: 10
+  extra_key_whitelist:
+    enable: false
+    user_rules:
+    # - key: enableSimulationUser # dot separated. ex: domain.opsk.uuid
+    #   mode: rw # supported 3 modes: rw, ro, '-' (means: UserAPI read-write, read-only, not-displaying-info)
+    #   type: bool # supported value types: bool, string, int, ... etc
+    #   default: false # default value, ex: true/false, '', ... etc
+    project_rules:
+    membership_rules:
+  saat:
+    expire_mins: 60
+metadata:
+  enable: false
+  service: my_redis_sentinel
+littlebell:
+  host: http://pegasus-cloud-snsserver:8092
+  region: default
+  credential:
+    project_id: 14735dfa-5553-46cc-b4bd-405e711b223f
+    user_id: 4990ccdb-a9b1-49e5-91df-67c921601d81
+  arn: arn:aws:sns:default:14735dfa-5553-46cc-b4bd-405e711b223f:lbm-svc-event-publish-topic
+saml:
+  host: http://10.96.148.139:8084
+  sp_provider: keycloak
+plugin:
+  auth_chain:
+    enable: false
+    # For production environment
+    # path: /var/lib/ASUS/plugin/authentication
+    path: "@plugin/auth_chain"
+    plugin: []
+ldap:
+  host: 0.0.0.0:3891
+  provider: iam
+  # Only supported: "Add", "Bind", "Connect", "Delete", "Disconnect", 
+  #   "ExtendedRequest", "Modify", "ModifyDN", "PasswordModify", "Search", "Whoami" and "*"(Allow All)
+  allow_operation: ['*']
+  tls:
+    enable: false
+    cert_path: tls/pegasus-iam/pegasus-iam.pem
+    key_path: tls/pegasus-iam/pegasus-iam-key.pem
+  cli_secret_namespace: 
+    - srt.asus.com
+storage:
+  provider: mariadb
+  mariadb:
+    host: pegasus-cloud-mariadb:3306
+    account: root
+    password: password
+    name: iam
+    timeout: 5
+    max_open_conns: 150
+    conn_max_lifetime: 10
+    max_idle_conns: 150
+services:
+- name: my_redis_sentinel
+  kind: redis_sentinel
+  hosts:
+  - pegasus-cloud-redis-sentinel:26379
+  password: password
+  sentinel_password: password
+  master_group_name: mymaster
+event_publish:
+  plugins: 
+  # - name: EventPublishPlugin
+    # type: grpc
+    # binary_path: "/var/lib/ASUS/EventPublishPlugin/eventpublishplugin"
+    # config_path: "/var/lib/ASUS/EventPublishPlugin/epp.yaml"
+    # socket_path: "/eventpublishplugin.sock"
+    # start_cmd_args:
+      # --redis-channel: FromIAM

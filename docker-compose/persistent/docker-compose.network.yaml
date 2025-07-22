@@ -1,0 +1,17 @@
+services: 
+  pegauss-cloud-network:
+    container_name: network
+    image: ociscloud/debugger:1.0.2
+    networks: 
+      pegasus-cloud-network:
+          ipv4_address: 172.40.0.2
+
+networks:
+  pegasus-cloud-network:
+    name: pegasus-cloud-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.40.0.0/16
+        gateway: 172.40.0.1

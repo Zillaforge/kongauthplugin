@@ -1,0 +1,40 @@
+services:
+
+  kong:
+    image: kong:3.7.1-ubuntu
+    container_name: kong
+    user: root
+    ports:
+      - "8000:8000" # Kong Proxy
+      - "8001:8001" # Kong Admin API
+      - "8002:8002" # Kong Admin UI
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      KONG_PLUGINS: bundled,kong-auth-plugin
+      KONG_PLUGINSERVER_NAMES: kong-auth-plugin
+      KONG_PLUGINSERVER_KONG_AUTH_PLUGIN_SOCKET: /usr/local/kong/kong-auth-plugin.socket
+      KONG_PLUGINSERVER_KONG_AUTH_PLUGIN_START_CMD: /usr/local/kong/plugins/kong-auth-plugin
+      KONG_PLUGINSERVER_KONG_AUTH_PLUGIN_QUERY_CMD: /usr/local/kong/plugins/kong-auth-plugin -dump
+    volumes:
+      - ${PWD}/docker-compose/etc/kong.yml:/usr/local/kong/declarative/kong.yml
+      - pegasus-cloud-plugin:/usr/local/kong/plugins
+    networks:
+      pegasus-cloud-network:
+        ipv4_address: 172.40.205.0
+    restart: on-failure
+
+networks:
+  pegasus-cloud-network:
+    external: true
+    name: pegasus-cloud-network  
+
+volumes:
+  pegasus-cloud-plugin:
+    external: true
+    name: pegasus-cloud-plugin

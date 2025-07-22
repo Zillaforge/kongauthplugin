@@ -1,0 +1,17 @@
+services:
+  pegasus-cloud-plugin-data:
+    container_name: plugin-data
+    image: ociscloud/debugger:1.0.2
+    volumes:
+      - pegasus-cloud-plugin:/mnt
+    networks:
+      pegasus-cloud-network:
+          ipv4_address: 172.40.0.4
+
+networks:
+  pegasus-cloud-network:
+    external: true
+    name: pegasus-cloud-network
+volumes:
+  pegasus-cloud-plugin:
+    name: pegasus-cloud-plugin

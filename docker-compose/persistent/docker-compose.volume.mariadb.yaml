@@ -1,0 +1,16 @@
+services: 
+  pegasus-cloud-mariadb-data:
+    container_name: mariadb-data
+    image: ociscloud/debugger:1.0.2
+    volumes:
+      - pegasus-cloud-mariadb-data:/mnt
+    networks: 
+      pegasus-cloud-network:
+          ipv4_address: 172.40.0.3
+networks:
+  pegasus-cloud-network:
+    external: true
+    name: pegasus-cloud-network
+volumes:
+  pegasus-cloud-mariadb-data:
+    name: pegasus-cloud-mariadb-data

@@ -1,0 +1,55 @@
+@gw_hostname = kong
+@gw_port = 8000
+@gw_host = {{gw_hostname}}:{{gw_port}}
+
+
+@iam_hostname = iam-server-release
+@iam_port = 8084
+@iam_host = {{iam_hostname}}:{{iam_port}}
+
+###
+// @name version_from_iam
+GET http://{{iam_host}}/iam/api/v1/version
+
+###
+// @name user_login_to_iam
+POST http://{{iam_host}}/iam/api/v1/login
+Content-Type: application/json
+
+{
+  "account": "{{ $dotenv USER_ACCOUNT }}",
+  "password": "{{ $dotenv USER_PASSWORD }}"
+}
+
+###
+@userToken = {{user_login_to_iam.response.body.token}}
+
+// @name get_user_from_iam
+GET http://{{iam_host}}/iam/api/v1/user
+Authorization: Bearer {{userToken}}
+
+
+
+###
+// @name version_from_gateway
+GET http://{{gw_host}}/iam/api/v1/version
+
+
+###
+// @name user_login_to_gateway
+POST http://{{gw_host}}/iam/api/v1/login
+Content-Type: application/json
+
+{
+  "account": "{{ $dotenv USER_ACCOUNT }}",
+  "password": "{{ $dotenv USER_PASSWORD }}"
+}
+
+###
+@userTokenfromGateway = {{user_login_to_gateway.response.body.token}}
+
+
+
+// @name get_user_from_gateway
+GET http://{{gw_host}}/iam/api/v1/user
+Authorization: Bearer {{userTokenfromGateway}}

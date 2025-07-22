@@ -23,6 +23,7 @@
 				"GitHub.copilot",
 				"isudox.vscode-jetbrains-keybindings",
 				"humao.rest-client",
+				"redhat.vscode-yaml"
 			]
 		}
 	},

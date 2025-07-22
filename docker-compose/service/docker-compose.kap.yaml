@@ -1,0 +1,27 @@
+services:
+
+  pegasus-cloud-kap-release:
+    image: ociscloud/kong-auth-plugin:2.0.3
+    container_name: kap-server-release
+    networks:
+      pegasus-cloud-network:
+        ipv4_address: 172.40.100.0
+    volumes:
+      - pegasus-cloud-plugin:/usr/local/kong/plugins
+    entrypoint:
+      - "sh"
+      - "-c"
+      - |-
+        cp /home/plugins/* /usr/local/kong/plugins
+
+
+
+networks:
+  pegasus-cloud-network:
+    external: true
+    name: pegasus-cloud-network  
+
+volumes:
+  pegasus-cloud-plugin:
+    external: true
+    name: pegasus-cloud-plugin

@@ -22,6 +22,7 @@
 				"golang.Go",
 				"GitHub.copilot",
 				"isudox.vscode-jetbrains-keybindings",
+				"humao.rest-client",
 			]
 		}
 	},

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/Kong/go-pdk"
-	"pegasus-cloud.com/aes/pegasusiamclient/pb"
+	"github.com/Zillaforge/pegasusiamclient/pb"
 )
 
 type Headers struct {

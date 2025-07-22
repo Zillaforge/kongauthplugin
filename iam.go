@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"pegasus-cloud.com/aes/pegasusiamclient/iam"
+	"github.com/Zillaforge/pegasusiamclient/iam"
 )
 
 const (

@@ -26,22 +26,19 @@
 		}
 	},
 	"containerEnv": {
-		"GOPROXY": "https://proxy.golang.org,http://docker-compose-goproxy-1:8078",
+		"GOPROXY": "https://proxy.golang.org,http://goproxy:8078",
 		"GOSUMDB": "off"
 	},
-
-	// "initializeCommand":{
-	// 	"cp kubeconfig": "[ ! -z \"$(docker ps -f name=kind-control-plane -q)\" ] && docker exec kind-control-plane cat /etc/kubernetes/admin.conf > config",
-	// 	"cp ca.crt": "[ ! -z \"$(docker ps -f name=kind-control-plane -q)\" ] && docker exec kind-control-plane cat /etc/kubernetes/pki/ca.crt > ca.crt",
-	// 	"cp ca.key": "[ ! -z \"$(docker ps -f name=kind-control-plane -q)\" ] && docker exec kind-control-plane cat /etc/kubernetes/pki/ca.key > ca.key"
-	// },
-	// "postStartCommand": {
-	// 	"mv kubeconfig": "mkdir -p /root/.kube && mv ${containerWorkspaceFolder}/config /root/.kube/config",
-	// 	"mv ca.crt": "mv ${containerWorkspaceFolder}/ca.crt /root/ca.crt",
-	// 	"mv ca.key": "mv ${containerWorkspaceFolder}/ca.key /root/ca.key"
-	// },
-	// docker args to run the container, connect to KinD network
 	"runArgs": [
-		"--network=docker-compose_pegasus"
-	]
+		"--network=proxy-network",
+		// "--network=pegasus-cloud-network"
+	],
+	"mounts": [
+		{
+			"source": "vscocde-golang-devcontainer",
+			"target": "/go",
+			"type": "volume"
+		},
+	],
+	"initializeCommand": "docker volume create  vscocde-golang-devcontainer"
 }

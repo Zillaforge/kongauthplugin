@@ -5,8 +5,8 @@ go 1.22.4
 require (
 	github.com/Kong/go-pdk v0.11.0
 	golang.org/x/net v0.33.0
-	pegasus-cloud.com/aes/pegasusiamclient v1.8.2
-	pegasus-cloud.com/aes/toolkits v0.4.3
+	pegasus-cloud.com/aes/pegasusiamclient v1.8.3
+	pegasus-cloud.com/aes/toolkits v0.4.5
 )
 
 require (

@@ -1,7 +1,7 @@
 OWNER ?= ociscloud
 PROJECT ?= KongAuthPlugin
 GOVERSION ?= 1.22.4
-PREVERSION ?= 2.0.2
+PREVERSION ?= 2.0.3
 OS ?= ubuntu
 ARCH ?= amd64
 VERSION ?= $(shell cat VERSION)

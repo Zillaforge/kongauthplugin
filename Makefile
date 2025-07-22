@@ -3,7 +3,7 @@ PROJECT ?= KongAuthPlugin
 GOVERSION ?= 1.22.4
 PREVERSION ?= 2.0.3
 OS ?= ubuntu
-ARCH ?= amd64
+ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 VERSION ?= $(shell cat VERSION)
 PWD := $(shell pwd)
 IAMPATH := $(PWD)/../pegasusiam
@@ -45,7 +45,7 @@ release-image:
 	@make build
 	@echo "Build Container Image"
 	@docker rmi -f ociscloud/$(PLUGIN_NAME):$(VERSION)
-	@docker build -t ociscloud/$(PLUGIN_NAME):$(VERSION) .
+	@docker build --platform linux/${ARCH} -t ociscloud/$(PLUGIN_NAME):$(VERSION) .
 	@mkdir -p tmp/container
 	@docker save ociscloud/$(PLUGIN_NAME):$(VERSION) > tmp/container/$(PLUGIN_NAME)_$(VERSION).image.tar
 

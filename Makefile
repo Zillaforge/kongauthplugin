@@ -44,19 +44,19 @@ build:
 release-image:
 	@make build
 	@echo "Build Container Image"
-	@docker rmi -f ociscloud/$(PLUGIN_NAME):$(VERSION)
-	@docker build --platform linux/${ARCH} -t ociscloud/$(PLUGIN_NAME):$(VERSION) .
+	@docker rmi -f $(OWNER)/$(PLUGIN_NAME):$(VERSION)
+	@docker build --platform linux/${ARCH} -t $(OWNER)/$(PLUGIN_NAME):$(VERSION) .
 	@mkdir -p tmp/container
-	@docker save ociscloud/$(PLUGIN_NAME):$(VERSION) > tmp/container/$(PLUGIN_NAME)_$(VERSION).image.tar
+	@docker save $(OWNER)/$(PLUGIN_NAME):$(VERSION) > tmp/container/$(PLUGIN_NAME)_$(VERSION).image.tar
 
 .PHONY: push-image
 push-image:
-	@echo "Check Image ociscloud/$(PLUGIN_NAME):$(VERSION)"
-	@docker image inspect ociscloud/$(PLUGIN_NAME):$(VERSION) --format="image existed"
+	@echo "Check Image $(OWNER)/$(PLUGIN_NAME):$(VERSION)"
+	@docker image inspect $(OWNER)/$(PLUGIN_NAME):$(VERSION) --format="image existed"
 	@echo "Push Image"
 	@docker logout
-	@docker login -u ociscloud --password-stdin <<< "<DOCKER HUB KEY>"
-	@docker image push ociscloud/$(PLUGIN_NAME):$(VERSION)
+	@docker login -u $(OWNER) --password-stdin <<< "<DOCKER HUB KEY>"
+	@docker image push $(OWNER)/$(PLUGIN_NAME):$(VERSION)
 	@docker logout
 
 .PHONY: start-dev-env

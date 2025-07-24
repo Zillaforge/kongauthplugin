@@ -1,4 +1,4 @@
-OWNER ?= ociscloud
+OWNER ?= Zillaforge
 PROJECT ?= KongAuthPlugin
 GOVERSION ?= 1.22.4
 PREVERSION ?= 2.0.3
@@ -9,7 +9,7 @@ PWD := $(shell pwd)
 IAMPATH := $(PWD)/../pegasusiam
 PLUGIN_NAME ?= kong-auth-plugin
 SYSTEM_REGISTRY ?= asuscloud:31350
-GO_PROXY ?= "https://proxy.golang.org,http://proxy.pegasus-cloud.com:8078"
+# GO_PROXY ?= "https://proxy.golang.org,http://proxy.pegasus-cloud.com:8078"
 
 sed = sed
 ifeq ("$(shell uname -s)", "Darwin")	# BSD sed, like MacOS
@@ -34,7 +34,7 @@ go-build:
 
 .PHONY: build
 build:
-	@docker run --name build-env -e GOPROXY=$(GO_PROXY) -e GOSUMDB="off" --network=host -v $(PWD):/home/kongauthplugin -v $(IAMPATH):/home/pegasusiam -w /home/kongauthplugin $(OWNER)/golang:$(GOVERSION)-$(OS)-$(ARCH) make go-build
+	@docker run --name build-env -v $(PWD):/home/kongauthplugin -v $(IAMPATH):/home/pegasusiam -w /home/kongauthplugin $(OWNER)/golang:$(GOVERSION)-$(OS)-$(ARCH) make go-build
 	@docker rm -f build-env
 
 # Release docker image

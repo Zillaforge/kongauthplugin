@@ -27,14 +27,14 @@
 			]
 		}
 	},
-	"containerEnv": {
-		"GOPROXY": "https://proxy.golang.org,http://goproxy:8078",
-		"GOSUMDB": "off"
-	},
-	"runArgs": [
-		"--network=proxy-network",
+	// "containerEnv": {
+	// 	"GOPROXY": "https://proxy.golang.org,http://goproxy:8078",
+	// 	"GOSUMDB": "off"
+	// },
+	// "runArgs": [
+		// "--network=proxy-network",
 		// "--network=pegasus-cloud-network"
-	],
+	// ],
 	"mounts": [
 		{
 			"source": "vscocde-golang-devcontainer",

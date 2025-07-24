@@ -1,5 +1,9 @@
 github.com/Kong/go-pdk v0.11.0 h1:kq+73rs82EWN9psS1uA6N5Q2e1j00E6CqGOyYyuZwq8=
 github.com/Kong/go-pdk v0.11.0/go.mod h1:a45ch8JrWiKe69++FuNuWCT3TrpWNHmJLho0Js/m3Bg=
+github.com/Zillaforge/pegasusiamclient v1.8.3 h1:X8PMr1syx9SvHe0P4ou8L79/wuwo9sx5PJj2ECL88M4=
+github.com/Zillaforge/pegasusiamclient v1.8.3/go.mod h1:lr3tp3bRb6eGlIEJjaFnUjzzi6rCKXkFC4+u9lC1a+0=
+github.com/Zillaforge/toolkits v0.4.5 h1:/yaxwChoBln3g+3V24JU/ftyRU8Ihq9hl5Lzd0YYabs=
+github.com/Zillaforge/toolkits v0.4.5/go.mod h1:b4OnqVG3nU/5kLo5srsfC+yBw7Wolwt2FmUWwF6VOyg=
 github.com/ajankovic/xdiff v0.0.1 h1:V1cj8t5xwYzm6ZGPqPOlAc9AIajXuTEn41D/1MJBWMM=
 github.com/ajankovic/xdiff v0.0.1/go.mod h1:SUmEZ67uB97I0zkiuQ+lb+LOms9ipn8X+p+2RdJV710=
 github.com/bytedance/sonic v1.12.2 h1:oaMFuRTpMHYLpCntGca65YWt5ny+wAceDERTkT2L9lg=
@@ -124,7 +128,3 @@ gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 nullprogram.com/x/optparse v1.0.0/go.mod h1:KdyPE+Igbe0jQUrVfMqDMeJQIJZEuyV7pjYmp6pbG50=
-github.com/Zillaforge/pegasusiamclient v1.8.3 h1:Y6C/R92NyWmnxOyISL+Wrl7CSK9LIp1rNSQkTErYwXE=
-github.com/Zillaforge/pegasusiamclient v1.8.3/go.mod h1:bWrkYEoPo4Hvqfwf7cgRYm5ZlKzUsW84pO2Yit5dyNw=
-github.com/Zillaforge/toolkits v0.4.5 h1:xjwsD42vh1RZFsu/ZXU52IDqA6bSStoUDK+h2XeiVq4
-github.com/Zillaforge/toolkits v0.4.5/go.mod h1:zYFHi1eU599GmpAJF9B5GzghesZslLtVMqxVtkJap1M=

@@ -6,7 +6,6 @@ OS ?= ubuntu
 ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 VERSION ?= $(shell cat VERSION)
 PWD := $(shell pwd)
-IAMPATH := $(PWD)/../pegasusiam
 PLUGIN_NAME ?= kong-auth-plugin
 SYSTEM_REGISTRY ?= asuscloud:31350
 # GO_PROXY ?= "https://proxy.golang.org,http://proxy.pegasus-cloud.com:8078"
@@ -34,7 +33,7 @@ go-build:
 
 .PHONY: build
 build:
-	@docker run --name build-env -v $(PWD):/home/kongauthplugin -v $(IAMPATH):/home/pegasusiam -w /home/kongauthplugin $(OWNER)/golang:$(GOVERSION)-$(OS)-$(ARCH) make go-build
+	@docker run --name build-env -v $(PWD):/home/kongauthplugin -w /home/kongauthplugin $(OWNER)/golang:$(GOVERSION)-$(OS)-$(ARCH) make go-build
 	@docker rm -f build-env
 
 # Release docker image
